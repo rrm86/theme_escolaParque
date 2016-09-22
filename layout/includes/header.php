@@ -27,22 +27,22 @@ $headerwidget = $PAGE->theme->settings->headerwidget;
 
 ?>
 
-    <!-- ******HEADER****** --> 
-    <header class="site-header">  
+    <!-- ******HEADER****** -->
+    <header class="site-header">
         <div class="top-bar">
-            <div class="container"> 
-                
+            <div class="container">
+
                 <h1 class="logo pull-left">
                     <?php if($haslogo) {?>
-                    
+
                     <a href="<?php echo $CFG->wwwroot ?>"><img id="logo" class="img-responsive" src="<?php echo $logourl ?>" alt="<?php echo $SITE->shortname; ?>" /></a>
-                    
+
                     <?php } else { ?>
-                    
+
                     <a href="<?php echo $CFG->wwwroot ?>"><?php echo format_string($SITE->shortname, true, array('context' => context_course::instance(SITEID))); ?></a>
-                    
+
                     <?php } ?>
-                
+
                 </h1><!--//logo-->
 
                 <?php if($hasheaderwidget) {?>
@@ -50,22 +50,31 @@ $headerwidget = $PAGE->theme->settings->headerwidget;
                     <?php echo $headerwidget ?>
                 </div><!--//header-widget-->
                 <?php }?>
-                                
+
                 <div class="logininfo-container">
-                    <?php echo $PAGE->headingmenu ?>
-                    <?php echo $OUTPUT->user_menu(); ?> 
+                    <?php  $url = (substr($_SERVER['SCRIPT_NAME'], -9));
+                                 if ($url =='index.php' && !isloggedin()) {
+                     ?>
+                     <br>
+                     <h3 class="usermenu">Ambiente virtual de aprendizagem</h3>
+                <?php }else{
+                                    echo $PAGE->headingmenu;
+                                    echo $OUTPUT->user_menu();
+                                 }
+                    ?>
+
                 </div><!--//logininfo-container-->
-                
+
                 <?php /* Moodle 3.1 global search feature - solr needs to be configured */
                 if (method_exists($OUTPUT, 'search_box')) {
                   echo $OUTPUT->search_box(); // global search, for Moodle 3.1+
                 }
                 ?>
-                
+
             </div><!--//container-fluid-->
         </div><!--//topbar-->
         <div class="menu-wrapper">
-            <div class="container">                
+            <div class="container">
                 <nav id="main-nav" class="main-nav" role="navigation">
                     <div class="navbar-header">
                         <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-collapse">
@@ -74,11 +83,11 @@ $headerwidget = $PAGE->theme->settings->headerwidget;
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button><!--//nav-toggle-->
-                    </div><!--//navbar-header-->            
+                    </div><!--//navbar-header-->
                     <div class="navbar-collapse collapse" id="navbar-collapse">
                         <?php echo $OUTPUT->custom_menu(); ?>
                     </div><!--//navabr-collapse-->
-                </nav><!--//main-nav-->           
+                </nav><!--//main-nav-->
             </div><!--//container-->
         </div><!--//menu-wrapper-->
     </header><!--//site-header-->
