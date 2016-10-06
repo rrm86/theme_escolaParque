@@ -66,27 +66,100 @@ echo $OUTPUT->doctype() ?>
     </div><!--//#page-->
     <div class="container">
         <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <h4>Acesso ao ambiente Virtual</h4>
-                <div class=""></div>
-                <div class="well">
-                    <form class="form-inline" action="<?php echo $CFG->httpswwwroot; ?>/login/index.php" method="post" id="login"  <?php echo $autocomplete; ?>>
-                      <div class="form-group">
-                        <label for="email">Email address:</label>
-                        <input type="text" name="username" id="username" size="15" placeholder="Matrícula" value="<?php p($frm->username) ?>">
-                      </div>
-                      <div class="form-group">
-                        <label for="pwd">Password:</label>
-                        <input type="password" name="password" id="password" size="15" placeholder="**********" value="" <?php echo $autocomplete; ?>"">
-                      </div>
-                      <div class="checkbox">
-                        <label><input input type="submit" id="loginbtn" value="<?php print_string("login") ?>"> Remember me</label>
-                        <input type="checkbox"></input>
-                      </div>
-                    </form>
+        <h2 class="pdacesso">Acesso ao Ambiente Virtual</h2>
+            <div class="loginbox clearfix <?php echo $columns ?>">
 
-                </div>
+  <div class="loginpanel">
+<?php
+  if (($CFG->registerauth == 'email') || !empty($CFG->registerauth)) { ?>
+      <div class="skiplinks"><a class="skip" href="signup.php"><?php print_string("tocreatenewaccount"); ?></a></div>
+<?php
+  } ?>
+
+      <div class="subcontent loginsub">
+        <?php
+          if (!empty($errormsg)) {
+              echo html_writer::start_tag('div', array('class' => 'loginerrors'));
+              echo html_writer::link('#', $errormsg, array('id' => 'loginerrormessage', 'class' => 'accesshide'));
+              echo $OUTPUT->error_text($errormsg);
+              echo html_writer::end_tag('div');
+          }
+        ?>
+        <form class="form-inline" action="<?php echo $CFG->httpswwwroot; ?>/login/index.php" method="post" id="login" <?php echo $autocomplete; ?> >
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                <input type="text" name="username" id="username" size="15" placeholder="Matrícula" value="<?php p($frm->username) ?>">
+
             </div>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                <input type="password" name="password" id="password" size="15" placeholder="**********" value="" <?php echo $autocomplete; ?>"">
+            </div>
+            <div class=" form-group">
+                <button type="submit" d="loginbtn" class="btn btn-sm btn-warning">Entrar</button>
+            </div>
+            <div class="row">
+              <div class="text-right col-sm-6 col-xs-12">
+              <?php if (isset($CFG->rememberusername) and $CFG->rememberusername == 2) { ?>
+              <div class="rememberpass">
+                  <input type="checkbox" name="rememberusername" id="rememberusername" value="1" <?php if ($frm->username) {echo 'checked="checked"';} ?> />
+                  <label for="rememberusername"><?php print_string('rememberusername', 'admin') ?></label>
+              </div>
+              <?php } ?>
+
+          <input id="anchor" type="hidden" name="anchor" value="" />
+          <script>document.getElementById('anchor').value = location.hash</script>
+          </div>
+          <div class="text-left col-sm-6 col-xs-12">
+          <div class="forgetpass"><a href="forgot_password.php"><?php print_string("forgotten") ?></a></div>
+          </div>
+          </div>
+        </form>
+
+      </div>
+
+     </div>
+<?php if ($show_instructions) { ?>
+    <div class="signuppanel">
+      <h2><?php print_string("firsttime") ?></h2>
+      <div class="subcontent">
+<?php     if (is_enabled_auth('none')) { // instructions override the rest for security reasons
+              print_string("loginstepsnone");
+          } else if ($CFG->registerauth == 'email') {
+              if (!empty($CFG->auth_instructions)) {
+                  echo format_text($CFG->auth_instructions);
+              } else {
+                  print_string("loginsteps", "", "signup.php");
+              } ?>
+                 <div class="signupform">
+                   <form action="signup.php" method="get" id="signup">
+                   <div><input type="submit" value="<?php print_string("startsignup") ?>" /></div>
+                   </form>
+                 </div>
+<?php     } else if (!empty($CFG->registerauth)) {
+              echo format_text($CFG->auth_instructions); ?>
+              <div class="signupform">
+                <form action="signup.php" method="get" id="signup">
+                <div><input type="submit" value="<?php print_string("startsignup") ?>" /></div>
+                </form>
+              </div>
+<?php     } else {
+              echo format_text($CFG->auth_instructions);
+          } ?>
+      </div>
+    </div>
+<?php } ?>
+<?php if (!empty($potentialidps)) { ?>
+    <div class="subcontent potentialidps">
+        <h6><?php print_string('potentialidps', 'auth'); ?></h6>
+        <div class="potentialidplist">
+<?php foreach ($potentialidps as $idp) {
+    echo  '<div class="potentialidp"><a href="' . $idp['url']->out() . '" title="' . $idp['name'] . '">' . $OUTPUT->render($idp['icon'], $idp['name']) . $idp['name'] . '</a></div>';
+} ?>
+        </div>
+    </div>
+<?php } ?>
+</div>
         </div>
     </div>
 
