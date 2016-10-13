@@ -66,7 +66,7 @@ echo $OUTPUT->doctype() ?>
     </div><!--//#page-->
     <div class="container">
         <div class="row">
-        <h2 class="pdacesso">Acesso ao Ambiente Virtual</h2>
+        <h3 class="pdacesso">Acesso ao Ambiente Virtual</h3>
             <div class="loginbox clearfix <?php echo $columns ?>">
 
   <div class="loginpanel">
@@ -86,39 +86,57 @@ echo $OUTPUT->doctype() ?>
           }
         ?>
         <form class="form-inline" action="<?php echo $CFG->httpswwwroot; ?>/login/index.php" method="post" id="login" <?php echo $autocomplete; ?> >
-            <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input type="text" name="username" id="username" size="15" placeholder="Matrícula" value="<?php p($frm->username) ?>">
+        <div class="row">
+            <div class="input-group col-md-5">
+                <span style="background-color:#5dbd5f;color:white" class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                <input class="form-control input-lg" type="text" name="username" id="username" placeholder="Matrícula" value="<?php p($frm->username) ?>">
+            </div>
 
+
+            <div class="input-group col-md-5">
+                <span style="background-color:#5dbd5f;color:white" class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                <input class="form-control input-lg" type="password" name="password" id="password"  placeholder="**********" value="" <?php echo $autocomplete; ?>"">
             </div>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                <input type="password" name="password" id="password" size="15" placeholder="**********" value="" <?php echo $autocomplete; ?>"">
-            </div>
-            <div class=" form-group">
-                <button type="submit" d="loginbtn" class="btn btn-sm btn-warning">Entrar</button>
-            </div>
+
+                <button style="background-color:#eca154"  type="submit" id="loginbtn" >Entrar</button>
+
+          </div>
+          <div><br></div>
+
             <div class="row">
-              <div class="text-right col-sm-6 col-xs-12">
+              <div class="pd_zero">
+
               <?php if (isset($CFG->rememberusername) and $CFG->rememberusername == 2) { ?>
               <div class="rememberpass">
-                  <input type="checkbox" name="rememberusername" id="rememberusername" value="1" <?php if ($frm->username) {echo 'checked="checked"';} ?> />
-                  <label for="rememberusername"><?php print_string('rememberusername', 'admin') ?></label>
+
+                  <input  type="checkbox" name="rememberusername" id="rememberusername" value="1" <?php if ($frm->username) {echo 'checked="checked"';} ?> />
+                  <label for="rememberusername">Lembrar Usuário    |   </label>
+                  <span class=""><a style="color:#5dbd5f" href="forgot_password.php"><?php print_string("forgotten") ?></a></span>
               </div>
+
               <?php } ?>
 
           <input id="anchor" type="hidden" name="anchor" value="" />
           <script>document.getElementById('anchor').value = location.hash</script>
+
+
           </div>
-          <div class="text-left col-sm-6 col-xs-12">
-          <div class="forgetpass"><a href="forgot_password.php"><?php print_string("forgotten") ?></a></div>
+
           </div>
-          </div>
+
+
+
         </form>
 
       </div>
 
      </div>
+      <div class="row">
+        <div><br></div>
+        <div class="text-center">©2016 Escola Parque</div>
+        <div><br></div>
+      </div>
+
 <?php if ($show_instructions) { ?>
     <div class="signuppanel">
       <h2><?php print_string("firsttime") ?></h2>
@@ -163,7 +181,6 @@ echo $OUTPUT->doctype() ?>
         </div>
     </div>
 
-    <?php require_once(dirname(__FILE__).'/includes/footer.php'); ?>
 
 
 <?php echo $OUTPUT->standard_end_of_body_html() ?>
