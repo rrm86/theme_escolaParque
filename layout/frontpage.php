@@ -66,7 +66,7 @@ echo $OUTPUT->doctype() ?>
     </div><!--//#page-->
     <div class="container">
         <div class="row">
-        <h3 class="pdacesso">Acesso ao Ambiente Virtual</h3>
+        <h3 class="pdacesso">Acesso</h3>
             <div class="loginbox clearfix <?php echo $columns ?>">
 
   <div class="loginpanel">
@@ -89,7 +89,7 @@ echo $OUTPUT->doctype() ?>
         <div class="row">
             <div class="input-group col-md-5">
                 <span style="background-color:#5dbd5f;color:white" class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input class="form-control input-lg" type="text" name="username" id="username" placeholder="Matrícula" value="<?php p($frm->username) ?>">
+                <input class="form-control input-lg" type="text" name="username" id="username" placeholder="Usuário" value="<?php p($frm->username) ?>">
             </div>
 
 

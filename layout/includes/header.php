@@ -56,7 +56,7 @@ $headerwidget = $PAGE->theme->settings->headerwidget;
                                  if ($url =='index.php' && !isloggedin()) {
                      ?>
                      <br>
-                     <h3 class="usermenu">Ambiente virtual de aprendizagem</h3>
+                     <h3 class="usermenu">Ambiente Virtual de Aprendizagem</h3>
                 <?php }else{
                                     echo $PAGE->headingmenu;
                                     echo $OUTPUT->user_menu();
